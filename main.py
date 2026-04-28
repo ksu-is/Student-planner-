@@ -24,12 +24,13 @@ def main():
     task_entry.pack(pady=5)
 
     tk.Button(root, text="Add Task", command=add_task, bg="green", fg="white").pack(pady=5)
-    
-    # NEW: Delete Button
     tk.Button(root, text="Delete Selected Task", command=delete_task, bg="red", fg="white").pack(pady=5)
 
     listbox = tk.Listbox(root, width=45, height=15)
     listbox.pack(pady=10)
+
+    
+    root.bind('<Return>', lambda event: add_task())
 
     root.mainloop()
 
