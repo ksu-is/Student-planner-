@@ -5,8 +5,9 @@
 - [x] Establish Repository
 - [x] Identify Base Code/Research
 
-## Sprint 2: Core Development
-- [ ] Create basic Python application window
-- [ ] Add "Task Input" functionality
-- [ ] Setup data storage (JSON or CSV)
-- [ ] Create "View Tasks" list
+## Sprint 2: Core Development (DONE)
+- [x] Create basic Python application window
+- [x] Add "Task Input" functionality
+- [x] Create "View Tasks" list (Listbox)
+- [x] Implement task deletion logic
+- [x] Add keyboard shortcuts for UX
