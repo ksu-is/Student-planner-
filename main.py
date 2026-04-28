@@ -1,34 +1,26 @@
 import tkinter as tk
 
 def add_task():
-    
     task = task_entry.get()
     if task:
-        print(f"Task Added: {task}")
-        task_entry.delete(0, tk.END) 
+        listbox.insert(tk.END, task) # This adds it to the list on screen
+        task_entry.delete(0, tk.END)
 
 def main():
-    global task_entry
-    
+    global task_entry, listbox
     root = tk.Tk()
     root.title("Student Planner App")
-    root.geometry("400x400")
+    root.geometry("400x500")
     
-    
-    label = tk.Label(root, text="My Student Planner", font=("Arial", 16, "bold"))
-    label.pack(pady=10)
-
-    
-    inst_label = tk.Label(root, text="Enter a new task below:")
-    inst_label.pack()
-
-   
+    tk.Label(root, text="My Student Planner", font=("Arial", 16, "bold")).pack(pady=10)
     task_entry = tk.Entry(root, width=30)
     task_entry.pack(pady=5)
 
+    tk.Button(root, text="Add Task", command=add_task, bg="green", fg="white").pack(pady=10)
+
     
-    add_button = tk.Button(root, text="Add Task", command=add_task, bg="green", fg="white")
-    add_button.pack(pady=10)
+    listbox = tk.Listbox(root, width=45, height=15)
+    listbox.pack(pady=10)
 
     root.mainloop()
 
