@@ -80,8 +80,32 @@ def clear_all():
         listbox.delete(0, tk.END)
         save_tasks()
 
+def generate_schedule():
+    schedule_box.delete("1.0", tk.END)
+
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    day_index = 0
+
+    if listbox.size() == 0:
+        schedule_box.insert(tk.END, "No tasks to schedule.")
+        return
+
+    schedule_box.insert(tk.END, "Generated Weekly Schedule:\n\n")
+
+    for i in range(listbox.size()):
+        task = listbox.get(i)
+
+        if not task.startswith("[DONE]"):
+            day = days[day_index]
+            schedule_box.insert(tk.END, f"{day}: Work on {task}\n\n")
+
+            day_index += 1
+
+            if day_index >= len(days):
+                day_index = 0
+
 def main():
-    global assignment_entry, due_date_entry, time_entry, importance_entry, stress_entry, listbox, status_label
+    global assignment_entry, due_date_entry, time_entry, importance_entry, stress_entry, listbox, status_label, schedule_box
 
     root = tk.Tk()
     root.title("Panic Panda Planner")
@@ -121,6 +145,7 @@ def main():
     tk.Button(btn_frame, text="Delete Task", command=delete_task, bg="orange", fg="white", width=12).grid(row=0, column=1, padx=5)
     tk.Button(btn_frame, text="Clear All", command=clear_all, bg="red", fg="white", width=12).grid(row=0, column=2, padx=5)
     tk.Button(btn_frame, text="Mark Done", command=mark_done, bg="blue", fg="white", width=12).grid(row=1, column=0, padx=5, pady=5)
+    tk.Button(btn_frame, text="Generate Schedule", command=generate_schedule, bg="purple", fg="white", width=18).grid(row=1, column=1, columnspan=2, padx=5, pady=5)
 
     list_frame = tk.Frame(root)
     list_frame.pack(pady=10)
@@ -131,6 +156,11 @@ def main():
     scrollbar.config(command=listbox.yview)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     listbox.pack(side=tk.LEFT)
+
+    tk.Label(root, text="Schedule", font=("Arial", 14, "bold")).pack(pady=5)
+
+    schedule_box = tk.Text(root, width=65, height=8)
+    schedule_box.pack(pady=5)
 
     status_label = tk.Label(root, text="Total Tasks: 0", bd=1, relief=tk.SUNKEN, anchor=tk.W)
     status_label.pack(side=tk.BOTTOM, fill=tk.X)
