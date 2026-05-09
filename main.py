@@ -97,7 +97,11 @@ def generate_schedule():
 
         if not task.startswith("[DONE]"):
             day = days[day_index]
-            schedule_box.insert(tk.END, f"{day}: Work on {task}\n\n")
+
+            if "Stress: 8/10" in task or "Stress: 9/10" in task or "Stress: 10/10" in task:
+                schedule_box.insert(tk.END, f"{day}: Start small on this high-stress task. Work for 25 minutes: {task}\n\n")
+            else:
+                schedule_box.insert(tk.END, f"{day}: Work on this task: {task}\n\n")
 
             day_index += 1
 
