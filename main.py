@@ -34,9 +34,10 @@ def add_task():
     due_date = due_date_entry.get()
     time_estimate = time_entry.get()
     importance = importance_entry.get()
+    stress = stress_entry.get()
 
-    if assignment and due_date and time_estimate and importance:
-        task = f"{assignment} | Due: {due_date} | Time: {time_estimate} min | Importance: {importance}/10"
+    if assignment and due_date and time_estimate and importance and stress:
+        task = f"{assignment} | Due: {due_date} | Time: {time_estimate} min | Importance: {importance}/10 | Stress: {stress}/10"
 
         listbox.insert(tk.END, task)
 
@@ -44,6 +45,7 @@ def add_task():
         due_date_entry.delete(0, tk.END)
         time_entry.delete(0, tk.END)
         importance_entry.delete(0, tk.END)
+        stress_entry.delete(0, tk.END)
 
         save_tasks()
     else:
