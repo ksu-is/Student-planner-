@@ -59,13 +59,29 @@ def delete_task():
     except:
         messagebox.showwarning("No Selection", "Please select a task to delete.")
 
+def mark_done():
+    try:
+        selected_task_index = listbox.curselection()[0]
+        task = listbox.get(selected_task_index)
+
+        if not task.startswith("[DONE]"):
+            updated_task = "[DONE] " + task
+            listbox.delete(selected_task_index)
+            listbox.insert(selected_task_index, updated_task)
+            save_tasks()
+        else:
+            messagebox.showinfo("Already Done", "This task is already marked as done.")
+
+    except:
+        messagebox.showwarning("No Selection", "Please select a task to mark as done.")
+
 def clear_all():
     if messagebox.askyesno("Confirm", "Clear all tasks?"):
         listbox.delete(0, tk.END)
         save_tasks()
 
 def main():
-    global assignment_entry, due_date_entry, time_entry, importance_entry, listbox, status_label
+    global assignment_entry, due_date_entry, time_entry, importance_entry, stress_entry, listbox, status_label
 
     root = tk.Tk()
     root.title("Panic Panda Planner")
@@ -91,6 +107,12 @@ def main():
     tk.Label(form_frame, text="Importance 1-10:").grid(row=3, column=0, sticky="w")
     importance_entry = tk.Entry(form_frame, width=35)
     importance_entry.grid(row=3, column=1, pady=5)
+    
+    tk.Label(form_frame, text="Stress 1-10:").grid(row=4, column=0, sticky="w")
+    stress_entry = tk.Entry(form_frame, width=35)
+    stress_entry.grid(row=4, column=1, pady=5)
+
+    
 
     btn_frame = tk.Frame(root)
     btn_frame.pack(pady=10)
@@ -98,6 +120,7 @@ def main():
     tk.Button(btn_frame, text="Add Task", command=add_task, bg="green", fg="white", width=12).grid(row=0, column=0, padx=5)
     tk.Button(btn_frame, text="Delete Task", command=delete_task, bg="orange", fg="white", width=12).grid(row=0, column=1, padx=5)
     tk.Button(btn_frame, text="Clear All", command=clear_all, bg="red", fg="white", width=12).grid(row=0, column=2, padx=5)
+    tk.Button(btn_frame, text="Mark Done", command=mark_done, bg="blue", fg="white", width=12).grid(row=1, column=0, padx=5, pady=5)
 
     list_frame = tk.Frame(root)
     list_frame.pack(pady=10)
