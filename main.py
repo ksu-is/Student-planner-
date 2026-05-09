@@ -78,6 +78,7 @@ def mark_done():
 def clear_all():
     if messagebox.askyesno("Confirm", "Clear all tasks?"):
         listbox.delete(0, tk.END)
+        schedule_box.delete("1.0", tk.END)
         save_tasks()
 
 def generate_schedule():
@@ -109,11 +110,12 @@ def generate_schedule():
                 day_index = 0
 
 def main():
-    global assignment_entry, due_date_entry, time_entry, importance_entry, stress_entry, listbox, status_label, schedule_box
+    global assignment_entry, due_date_entry, time_entry, importance_entry, stress_entry
+    global listbox, status_label, schedule_box
 
     root = tk.Tk()
     root.title("Panic Panda Planner")
-    root.geometry("550x650")
+    root.geometry("650x750")
 
     tk.Label(root, text="Panic Panda Planner", font=("Arial", 18, "bold")).pack(pady=10)
 
@@ -121,41 +123,40 @@ def main():
     form_frame.pack(pady=10)
 
     tk.Label(form_frame, text="Assignment:").grid(row=0, column=0, sticky="w")
-    assignment_entry = tk.Entry(form_frame, width=35)
+    assignment_entry = tk.Entry(form_frame, width=40)
     assignment_entry.grid(row=0, column=1, pady=5)
 
     tk.Label(form_frame, text="Due Date:").grid(row=1, column=0, sticky="w")
-    due_date_entry = tk.Entry(form_frame, width=35)
+    due_date_entry = tk.Entry(form_frame, width=40)
     due_date_entry.grid(row=1, column=1, pady=5)
 
     tk.Label(form_frame, text="Time Estimate:").grid(row=2, column=0, sticky="w")
-    time_entry = tk.Entry(form_frame, width=35)
+    time_entry = tk.Entry(form_frame, width=40)
     time_entry.grid(row=2, column=1, pady=5)
 
     tk.Label(form_frame, text="Importance 1-10:").grid(row=3, column=0, sticky="w")
-    importance_entry = tk.Entry(form_frame, width=35)
+    importance_entry = tk.Entry(form_frame, width=40)
     importance_entry.grid(row=3, column=1, pady=5)
-    
-    tk.Label(form_frame, text="Stress 1-10:").grid(row=4, column=0, sticky="w")
-    stress_entry = tk.Entry(form_frame, width=35)
-    stress_entry.grid(row=4, column=1, pady=5)
 
-    
+    tk.Label(form_frame, text="Stress 1-10:").grid(row=4, column=0, sticky="w")
+    stress_entry = tk.Entry(form_frame, width=40)
+    stress_entry.grid(row=4, column=1, pady=5)
 
     btn_frame = tk.Frame(root)
     btn_frame.pack(pady=10)
 
-    tk.Button(btn_frame, text="Add Task", command=add_task, bg="green", fg="white", width=12).grid(row=0, column=0, padx=5)
-    tk.Button(btn_frame, text="Delete Task", command=delete_task, bg="orange", fg="white", width=12).grid(row=0, column=1, padx=5)
-    tk.Button(btn_frame, text="Clear All", command=clear_all, bg="red", fg="white", width=12).grid(row=0, column=2, padx=5)
-    tk.Button(btn_frame, text="Mark Done", command=mark_done, bg="blue", fg="white", width=12).grid(row=1, column=0, padx=5, pady=5)
-    tk.Button(btn_frame, text="Generate Schedule", command=generate_schedule, bg="purple", fg="white", width=18).grid(row=1, column=1, columnspan=2, padx=5, pady=5)
+    tk.Button(btn_frame, text="Add Task", command=add_task, bg="green", fg="white", width=14).grid(row=0, column=0, padx=5)
+    tk.Button(btn_frame, text="Delete Task", command=delete_task, bg="orange", fg="white", width=14).grid(row=0, column=1, padx=5)
+    tk.Button(btn_frame, text="Clear All", command=clear_all, bg="red", fg="white", width=14).grid(row=0, column=2, padx=5)
+
+    tk.Button(btn_frame, text="Mark Done", command=mark_done, bg="blue", fg="white", width=14).grid(row=1, column=0, padx=5, pady=5)
+    tk.Button(btn_frame, text="Generate Schedule", command=generate_schedule, bg="purple", fg="white", width=30).grid(row=1, column=1, columnspan=2, padx=5, pady=5)
 
     list_frame = tk.Frame(root)
     list_frame.pack(pady=10)
 
     scrollbar = tk.Scrollbar(list_frame, orient=tk.VERTICAL)
-    listbox = tk.Listbox(list_frame, width=75, height=15, yscrollcommand=scrollbar.set)
+    listbox = tk.Listbox(list_frame, width=85, height=12, yscrollcommand=scrollbar.set)
 
     scrollbar.config(command=listbox.yview)
     scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
@@ -163,7 +164,7 @@ def main():
 
     tk.Label(root, text="Schedule", font=("Arial", 14, "bold")).pack(pady=5)
 
-    schedule_box = tk.Text(root, width=65, height=8)
+    schedule_box = tk.Text(root, width=75, height=10)
     schedule_box.pack(pady=5)
 
     status_label = tk.Label(root, text="Total Tasks: 0", bd=1, relief=tk.SUNKEN, anchor=tk.W)
